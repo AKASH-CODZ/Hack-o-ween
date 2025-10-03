@@ -1,35 +1,3 @@
-// Event data
-const eventData = {
-    'coding-championship': {
-        title: 'Coding Championship',
-        icon: '💻',
-        description: 'Join us for an exciting coding championship where participants will face algorithm challenges, data structure problems, and real-world programming scenarios. Test your skills against the best coders and win amazing prizes.',
-        schedule: '10:00 AM - 4:00 PM',
-        venue: 'Computer Lab A'
-    },
-    'innovation-workshop': {
-        title: 'Innovation Workshop',
-        icon: '🚀',
-        description: 'Hands-on workshop covering the latest trends in technology including AI, machine learning, blockchain, and emerging frameworks. Industry experts will guide you through practical sessions.',
-        schedule: '9:00 AM - 12:00 PM',
-        venue: 'Workshop Hall'
-    },
-    'tech-talks': {
-        title: 'Tech Talks',
-        icon: '🎤',
-        description: 'Keynote presentations from leading technology professionals sharing insights about industry trends, career guidance, and breakthrough innovations shaping the future.',
-        schedule: '2:00 PM - 5:00 PM',
-        venue: 'Main Auditorium'
-    },
-    'project-showcase': {
-        title: 'Project Showcase',
-        icon: '🏆',
-        description: 'Showcase your innovative projects to a panel of judges and peers. Categories include web development, mobile apps, AI/ML projects, and hardware innovations. Winners receive cash prizes and internship opportunities.',
-        schedule: '11:00 AM - 3:00 PM',
-        venue: 'Exhibition Hall'
-    }
-};
-
 // DOM Content Loaded Event
 document.addEventListener('DOMContentLoaded', function() {
     // Initialize all functionality
@@ -37,7 +5,8 @@ document.addEventListener('DOMContentLoaded', function() {
     initCountdown();
     initScrollAnimations();
     initLoadingAnimations();
-    initEventModals();
+    initEventDetails();
+    initInteractiveEffects();
 });
 
 // Navigation functionality
@@ -92,86 +61,139 @@ function initNavigation() {
     });
 }
 
-// Countdown Timer functionality
-function initCountdown() {
-    // Set target date to Halloween 2025
-    const targetDate = new Date('October 31, 2025 00:00:00').getTime();
-    
-    const daysElement = document.getElementById('days');
-    const hoursElement = document.getElementById('hours');
-    const minutesElement = document.getElementById('minutes');
-    const secondsElement = document.getElementById('seconds');
+// Event details functionality
+function initEventDetails() {
+    const eventDetails = {
+        'coding-championship': {
+            title: 'Coding Championship',
+            icon: '💻',
+            description: 'Compete in thrilling coding challenges and showcase your programming prowess in this spine-chilling competition.',
+            details: [
+                '🕐 Duration: 4 hours of intense coding',
+                '🏆 Prizes: Cash rewards and exclusive swag',
+                '📝 Languages: Python, Java, C++, JavaScript',
+                '🎯 Difficulty: Beginner to Advanced levels'
+            ],
+            requirements: 'Bring your laptop and coding skills. All skill levels welcome!'
+        },
+        'innovation-workshop': {
+            title: 'Innovation Workshop',
+            icon: '🚀',
+            description: 'Learn cutting-edge technologies and innovative development practices from industry experts.',
+            details: [
+                '🕑 Duration: 2-day intensive workshop',
+                '🔧 Topics: AI/ML, Web3, Cloud Computing',
+                '👨‍💻 Mentors: Industry professionals',
+                '📜 Certificate: Completion certificate provided'
+            ],
+            requirements: 'Basic programming knowledge recommended.'
+        },
+        'tech-talks': {
+            title: 'Tech Talks',
+            icon: '🎤',
+            description: 'Inspiring presentations from industry experts and thought leaders.',
+            details: [
+                '🕒 Duration: Full day keynote sessions',
+                '🎙️ Speakers: Tech industry leaders',
+                '📊 Topics: Future of tech, startup insights',
+                '🤝 Networking: Meet industry professionals'
+            ],
+            requirements: 'Open to all attendees.'
+        },
+        'project-showcase': {
+            title: 'Project Showcase',
+            icon: '🏆',
+            description: 'Present your innovative projects and compete for exciting prizes.',
+            details: [
+                '🕓 Duration: 3 hours presentation time',
+                '🏅 Categories: Web, Mobile, AI/ML, Hardware',
+                '💰 Prizes: Up to $5000 in total prizes',
+                '👥 Team size: 1-4 members per team'
+            ],
+            requirements: 'Original project required. All technologies welcome.'
+        }
+    };
 
-    // Update countdown every second
-    const countdownInterval = setInterval(function() {
-        const now = new Date().getTime();
-        const distance = targetDate - now;
+    window.showEventDetails = function(eventSlug) {
+        const event = eventDetails[eventSlug];
+        if (!event) return;
 
-        // Calculate time units
-        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+        const modal = document.createElement('div');
+        modal.className = 'event-modal';
+        modal.innerHTML = `
+            <div class="modal-overlay" onclick="closeEventModal()"></div>
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title"><span class="modal-icon">${event.icon}</span> ${event.title}</h2>
+                    <button class="modal-close" onclick="closeEventModal()">✕</button>
+                </div>
+                <div class="modal-body">
+                    <p class="modal-description">${event.description}</p>
+                    <div class="modal-details">
+                        <h3>Event Details:</h3>
+                        <ul class="details-list">${event.details.map(detail => `<li>${detail}</li>`).join('')}</ul>
+                        <div class="requirements">
+                            <h4>Requirements:</h4>
+                            <p>${event.requirements}</p>
+                        </div>
+                    </div>
+                    <div class="modal-actions">
+                        <button class="btn-register" onclick="document.getElementById('registration').scrollIntoView({behavior: 'smooth'}); closeEventModal();">Register Now 🎃</button>
+                        <button class="btn-close" onclick="closeEventModal()">Close</button>
+                    </div>
+                </div>
+            </div>
+        `;
+        document.body.appendChild(modal);
 
-        // Update DOM elements with zero padding
-        if (daysElement) daysElement.textContent = String(days).padStart(3, '0');
-        if (hoursElement) hoursElement.textContent = String(hours).padStart(2, '0');
-        if (minutesElement) minutesElement.textContent = String(minutes).padStart(2, '0');
-        if (secondsElement) secondsElement.textContent = String(seconds).padStart(2, '0');
+        const modalStyles = `
+            .event-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 10000; display: flex; align-items: center; justify-content: center; animation: modalFadeIn 0.3s ease-out; }
+            .modal-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.8); backdrop-filter: blur(5px); }
+            .modal-content { background: var(--halloween-black); border: 2px solid var(--halloween-orange); border-radius: var(--radius-lg); max-width: 600px; max-height: 80vh; overflow-y: auto; position: relative; margin: 16px; box-shadow: 0 20px 60px rgba(255, 117, 24, 0.3); }
+            .modal-header { padding: 24px; border-bottom: 2px solid var(--halloween-orange); display: flex; justify-content: space-between; align-items: center; }
+            .modal-title { color: var(--halloween-orange); font-family: 'Creepster', cursive; font-size: 32px; margin: 0; display: flex; align-items: center; gap: 12px; }
+            .modal-icon { font-size: 48px; }
+            .modal-close { background: none; border: none; color: var(--halloween-orange); font-size: 32px; cursor: pointer; transition: all 0.2s; }
+            .modal-close:hover { transform: scale(1.1); }
+            .modal-body { padding: 24px; }
+            .modal-description { font-size: 18px; margin-bottom: 24px; }
+            .modal-details h3 { color: var(--halloween-orange); margin-bottom: 16px; }
+            .details-list { list-style: none; padding: 0; margin-bottom: 24px; }
+            .details-list li { padding: 8px 0; border-bottom: 1px solid var(--color-border); }
+            .requirements h4 { color: var(--halloween-purple); margin-bottom: 8px; }
+            .requirements p { background: var(--color-bg-3); padding: 16px; border-radius: 8px; border-left: 4px solid var(--halloween-purple); }
+            .modal-actions { display: flex; gap: 16px; justify-content: center; margin-top: 32px; }
+            .btn-register, .btn-close { border: none; padding: 12px 24px; border-radius: 8px; font-weight: bold; cursor: pointer; transition: all 0.2s; }
+            .btn-register { background: linear-gradient(45deg, var(--halloween-orange), var(--halloween-purple)); color: white; }
+            .btn-register:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(255, 117, 24, 0.3); }
+            .btn-close { background: var(--color-secondary); color: var(--color-text); }
+            .btn-close:hover { background: var(--color-secondary-hover); }
+            @keyframes modalFadeIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
+        `;
+        if (!document.getElementById('modal-styles')) {
+            const styleElement = document.createElement('style');
+            styleElement.id = 'modal-styles';
+            styleElement.textContent = modalStyles;
+            document.head.appendChild(styleElement);
+        }
+        document.body.style.overflow = 'hidden';
+    };
 
-        // Add glow effect on second change
-        if (secondsElement) {
-            secondsElement.style.textShadow = '0 0 30px #FF7518';
+    window.closeEventModal = function() {
+        const modal = document.querySelector('.event-modal');
+        if (modal) {
+            modal.style.animation = 'modalFadeOut 0.3s ease-out forwards';
             setTimeout(() => {
-                if (secondsElement) {
-                    secondsElement.style.textShadow = '0 0 20px rgba(255, 117, 24, 0.6)';
-                }
-            }, 100);
+                modal.remove();
+                document.body.style.overflow = '';
+            }, 300);
         }
+    };
 
-        // If countdown reaches zero
-        if (distance < 0) {
-            clearInterval(countdownInterval);
-            if (daysElement) daysElement.textContent = '000';
-            if (hoursElement) hoursElement.textContent = '00';
-            if (minutesElement) minutesElement.textContent = '00';
-            if (secondsElement) secondsElement.textContent = '00';
-            
-            // Show event started message
-            const countdownText = document.querySelector('.countdown-text');
-            if (countdownText) {
-                countdownText.textContent = '🎃 The dark magic has begun! Welcome to Nexora 2025! 🦇';
-                countdownText.style.color = '#FF7518';
-                countdownText.style.textShadow = '0 0 20px rgba(255, 117, 24, 0.6)';
-            }
-        }
-    }, 1000);
-
-    // Initial call to avoid delay
-    const now = new Date().getTime();
-    const distance = targetDate - now;
-    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-    if (daysElement) daysElement.textContent = String(days).padStart(3, '0');
-    if (hoursElement) hoursElement.textContent = String(hours).padStart(2, '0');
-    if (minutesElement) minutesElement.textContent = String(minutes).padStart(2, '0');
-    if (secondsElement) secondsElement.textContent = String(seconds).padStart(2, '0');
-}
-
-// Event Modal functionality
-function initEventModals() {
-    // Close modal when clicking outside
-    const modal = document.getElementById('eventModal');
-    const modalBackdrop = document.querySelector('.modal-backdrop');
+    const fadeOutStyle = document.createElement('style');
+    fadeOutStyle.textContent = `@keyframes modalFadeOut { from { opacity: 1; transform: scale(1); } to { opacity: 0; transform: scale(0.9); } }`;
+    document.head.appendChild(fadeOutStyle);
     
-    if (modalBackdrop) {
-        modalBackdrop.addEventListener('click', closeEventModal);
-    }
-
-    // Close modal with Escape key
     document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape') {
             closeEventModal();
@@ -179,244 +201,66 @@ function initEventModals() {
     });
 }
 
-// Open event detail modal
-function openEventDetail(eventSlug) {
-    const event = eventData[eventSlug];
-    if (!event) return;
 
-    const modal = document.getElementById('eventModal');
-    const modalTitle = document.getElementById('modalEventTitle');
-    const modalIcon = document.getElementById('modalEventIcon');
-    const modalDescription = document.getElementById('modalEventDescription');
-    const modalSchedule = document.getElementById('modalEventSchedule');
-    const modalVenue = document.getElementById('modalEventVenue');
+// Countdown Timer functionality
+function initCountdown() {
+    const targetDate = new Date('October 31, 2025 23:59:59').getTime();
+    
+    const daysElement = document.getElementById('days');
+    const hoursElement = document.getElementById('hours');
+    const minutesElement = document.getElementById('minutes');
+    const secondsElement = document.getElementById('seconds');
 
-    // Populate modal content
-    if (modalTitle) modalTitle.textContent = event.title;
-    if (modalIcon) modalIcon.textContent = event.icon;
-    if (modalDescription) modalDescription.textContent = event.description;
-    if (modalSchedule) modalSchedule.textContent = event.schedule;
-    if (modalVenue) modalVenue.textContent = event.venue;
+    const countdownInterval = setInterval(function() {
+        const now = new Date().getTime();
+        const distance = targetDate - now;
 
-    // Show modal
-    if (modal) {
-        modal.classList.remove('hidden');
-        document.body.style.overflow = 'hidden'; // Prevent background scrolling
-        
-        // Add entrance animation
-        const modalContent = modal.querySelector('.modal-content');
-        if (modalContent) {
-            modalContent.style.transform = 'scale(0.8) translateY(-50px)';
-            modalContent.style.opacity = '0';
-            
-            setTimeout(() => {
-                modalContent.style.transition = 'all 0.3s ease-out';
-                modalContent.style.transform = 'scale(1) translateY(0)';
-                modalContent.style.opacity = '1';
-            }, 10);
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        if (daysElement) daysElement.textContent = String(days).padStart(3, '0');
+        if (hoursElement) hoursElement.textContent = String(hours).padStart(2, '0');
+        if (minutesElement) minutesElement.textContent = String(minutes).padStart(2, '0');
+        if (secondsElement) secondsElement.textContent = String(seconds).padStart(2, '0');
+
+        if (distance < 0) {
+            clearInterval(countdownInterval);
+            const countdownText = document.querySelector('.countdown-text');
+            if (countdownText) {
+                countdownText.textContent = '🎃 The dark magic has begun! Welcome to Hack-o-ween \'25! 🦇';
+            }
         }
-    }
+    }, 1000);
 }
 
-// Close event detail modal
-function closeEventModal() {
-    const modal = document.getElementById('eventModal');
-    if (modal) {
-        const modalContent = modal.querySelector('.modal-content');
-        
-        // Add exit animation
-        if (modalContent) {
-            modalContent.style.transition = 'all 0.2s ease-in';
-            modalContent.style.transform = 'scale(0.8) translateY(50px)';
-            modalContent.style.opacity = '0';
-            
-            setTimeout(() => {
-                modal.classList.add('hidden');
-                document.body.style.overflow = ''; // Restore scrolling
-                modalContent.style.transition = '';
-                modalContent.style.transform = '';
-                modalContent.style.opacity = '';
-            }, 200);
-        } else {
-            modal.classList.add('hidden');
-            document.body.style.overflow = '';
-        }
-    }
-}
-
-// Scroll animations
+// Scroll and Loading Animations
 function initScrollAnimations() {
-    // Intersection Observer for fade-in animations
-    const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-    };
-
-    const observer = new IntersectionObserver(function(entries) {
+    const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('fade-in');
-                
-                // Add staggered animation for event cards
-                if (entry.target.classList.contains('events-grid')) {
-                    const cards = entry.target.querySelectorAll('.event-card');
-                    cards.forEach((card, index) => {
-                        setTimeout(() => {
-                            card.classList.add('fade-in');
-                        }, index * 200);
-                    });
-                }
             }
         });
-    }, observerOptions);
+    }, { threshold: 0.1 });
 
-    // Observe elements for animations
-    const animatedElements = document.querySelectorAll('.about-content, .events-grid, .registration-container, .hero-countdown, .footer-content');
-    animatedElements.forEach(element => {
-        observer.observe(element);
-    });
-
-    // Parallax effect for floating bats
-    window.addEventListener('scroll', function() {
-        const scrolled = window.pageYOffset;
-        const bats = document.querySelectorAll('.bat');
-        
-        bats.forEach((bat, index) => {
-            const speed = 0.2 + (index * 0.1);
-            const yPos = -(scrolled * speed);
-            bat.style.transform = `translateY(${yPos}px) rotate(${scrolled * 0.02}deg)`;
-        });
-    });
+    document.querySelectorAll('.about-content, .events-grid, .registration-container, .footer-content').forEach(el => observer.observe(el));
 }
 
-// Loading animations
 function initLoadingAnimations() {
-    // Add loading class to body initially
-    document.body.classList.add('loading');
-    
-    // Remove loading class after a short delay
     setTimeout(() => {
-        document.body.classList.remove('loading');
-        
-        // Trigger hero animations
-        const heroElements = document.querySelectorAll('.hero-title, .hero-subtitle, .hero-tagline, .hero-countdown, .hero-graphics, .cta-button');
-        heroElements.forEach((element, index) => {
+        document.querySelectorAll('.hero-logos, .hero-title, .hero-tagline, .hero-countdown, .hero-graphics, .cta-button').forEach((el, index) => {
             setTimeout(() => {
-                element.classList.add('fade-in');
+                el.classList.add('fade-in');
             }, index * 200);
         });
-    }, 500);
+    }, 300);
 }
 
-// Additional interactive effects
-document.addEventListener('DOMContentLoaded', function() {
-    // Add hover sound effect simulation (visual feedback)
-    const buttons = document.querySelectorAll('.glow-button, .cta-button, .demo-register-btn, .learn-more-btn');
-    buttons.forEach(button => {
-        button.addEventListener('mouseenter', function() {
-            this.style.transform = 'translateY(-2px) scale(1.05)';
-        });
-        
-        button.addEventListener('mouseleave', function() {
-            this.style.transform = 'translateY(0) scale(1)';
-        });
-    });
-
-    // Enhanced card hover effects
-    const eventCards = document.querySelectorAll('.event-card');
-    eventCards.forEach(card => {
-        card.addEventListener('mouseenter', function() {
-            // Add random floating animation to event icon
-            const icon = this.querySelector('.event-icon');
-            if (icon) {
-                icon.style.animation = 'bounce 0.5s ease-in-out';
-                setTimeout(() => {
-                    icon.style.animation = '';
-                }, 500);
-            }
-            
-            // Add glow effect to border
-            this.style.boxShadow = '0 20px 40px rgba(255, 117, 24, 0.3), 0 0 30px rgba(255, 117, 24, 0.2)';
-            this.style.borderColor = '#FF7518';
-        });
-        
-        card.addEventListener('mouseleave', function() {
-            this.style.boxShadow = '';
-            this.style.borderColor = '#FF7518';
-        });
-    });
-
-    // Spooky text glow effect on scroll
-    window.addEventListener('scroll', function() {
-        const scrollPercent = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight);
-        const glowIntensity = Math.sin(scrollPercent * Math.PI * 4) * 0.5 + 0.5;
-        
-        const glowTexts = document.querySelectorAll('.glow-text');
-        glowTexts.forEach(text => {
-            const baseGlow = 'rgba(255, 117, 24, 0.6)';
-            const intensifiedGlow = `rgba(255, 117, 24, ${0.6 + glowIntensity * 0.4})`;
-            text.style.textShadow = `
-                0 0 5px ${intensifiedGlow},
-                0 0 10px ${intensifiedGlow},
-                0 0 20px ${intensifiedGlow},
-                0 0 40px ${intensifiedGlow}
-            `;
-        });
-    });
-
-    // Dynamic bat animation on user interaction
-    document.addEventListener('click', function(e) {
-        // Don't create click effects on modal interactions
-        if (e.target.closest('.modal')) return;
-        
-        createClickEffect(e.clientX, e.clientY);
-    });
-
-    function createClickEffect(x, y) {
-        const bat = document.createElement('div');
-        bat.innerHTML = '🦇';
-        bat.style.position = 'fixed';
-        bat.style.left = x + 'px';
-        bat.style.top = y + 'px';
-        bat.style.fontSize = '24px';
-        bat.style.pointerEvents = 'none';
-        bat.style.zIndex = '9999';
-        bat.style.animation = 'clickBat 2s ease-out forwards';
-        
-        document.body.appendChild(bat);
-        
-        setTimeout(() => {
-            bat.remove();
-        }, 2000);
-    }
-
-    // Add CSS for click bat animation
-    const style = document.createElement('style');
-    style.textContent = `
-        @keyframes clickBat {
-            0% {
-                opacity: 1;
-                transform: translate(0, 0) rotate(0deg) scale(1);
-            }
-            100% {
-                opacity: 0;
-                transform: translate(-100px, -100px) rotate(360deg) scale(0.5);
-            }
-        }
-        
-        .loading .hero-title,
-        .loading .hero-subtitle,
-        .loading .hero-tagline,
-        .loading .hero-countdown,
-        .loading .hero-graphics,
-        .loading .cta-button {
-            opacity: 0;
-            transform: translateY(30px);
-        }
-    `;
-    document.head.appendChild(style);
-
-    // Random spooky quotes that appear on scroll
+// Interactive Effects and Spooky Quotes
+function initInteractiveEffects() {
+    // Spooky Quotes Logic
     const spookyQuotes = [
         "Innovation lurks in the shadows... 🌙",
         "Code with the spirits of the night... 👻",
@@ -424,140 +268,54 @@ document.addEventListener('DOMContentLoaded', function() {
         "Where algorithms meet the supernatural... ⚡",
         "Debugging demons since 2025... 🕷️"
     ];
-
+    let isQuoteVisible = false;
     let lastQuoteScroll = 0;
+
     window.addEventListener('scroll', function() {
         const currentScroll = window.scrollY;
-        
-        // Show random quote every 500px of scrolling
-        if (currentScroll - lastQuoteScroll > 500) {
+        // Adjusted scroll distance for quote to be less frequent if preferred, can be changed
+        if (currentScroll - lastQuoteScroll > 800 && !isQuoteVisible) { 
             showSpookyQuote();
             lastQuoteScroll = currentScroll;
         }
     });
 
     function showSpookyQuote() {
+        isQuoteVisible = true;
         const quote = spookyQuotes[Math.floor(Math.random() * spookyQuotes.length)];
         const quoteElement = document.createElement('div');
-        
+        quoteElement.className = 'spooky-quote';
         quoteElement.innerHTML = quote;
-        quoteElement.style.cssText = `
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: rgba(11, 12, 16, 0.95);
-            color: #FF7518;
-            padding: 20px;
-            border-radius: 10px;
-            border: 2px solid #FF7518;
-            font-size: 18px;
-            font-weight: bold;
-            text-align: center;
-            z-index: 10000;
-            animation: spookyQuoteAnim 3s ease-in-out forwards;
-            pointer-events: none;
-            text-shadow: 0 0 20px rgba(255, 117, 24, 0.6);
-            box-shadow: 0 0 30px rgba(255, 117, 24, 0.3);
-        `;
-        
         document.body.appendChild(quoteElement);
-        
+
+        const quoteStyles = `
+            .spooky-quote { 
+                position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); 
+                background: rgba(11, 12, 16, 0.95); color: #FF7518; padding: 20px; 
+                border-radius: 10px; border: 2px solid #FF7518; font-size: 18px; 
+                font-weight: bold; text-align: center; z-index: 10000; 
+                animation: spookyQuoteAnim 3s ease-in-out forwards;
+                text-shadow: 0 0 20px rgba(255, 117, 24, 0.6);
+                box-shadow: 0 0 30px rgba(255, 117, 24, 0.3);
+            }
+            @keyframes spookyQuoteAnim {
+                0% { opacity: 0; transform: translate(-50%, -50%) scale(0.5); }
+                20% { opacity: 1; transform: translate(-50%, -50%) scale(1.1); }
+                80% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+                100% { opacity: 0; transform: translate(-50%, -50%) scale(0.8); }
+            }
+        `;
+        // Only add styles once
+        if (!document.getElementById('spooky-quote-styles')) {
+            const styleEl = document.createElement('style');
+            styleEl.id = 'spooky-quote-styles';
+            styleEl.textContent = quoteStyles;
+            document.head.appendChild(styleEl);
+        }
+
         setTimeout(() => {
             quoteElement.remove();
-        }, 3000);
+            isQuoteVisible = false;
+        }, 3000); // Quote remains visible for 3 seconds
     }
-
-    // Add spooky quote animation CSS
-    const quoteStyle = document.createElement('style');
-    quoteStyle.textContent = `
-        @keyframes spookyQuoteAnim {
-            0% {
-                opacity: 0;
-                transform: translate(-50%, -50%) scale(0.5) rotate(-10deg);
-            }
-            20% {
-                opacity: 1;
-                transform: translate(-50%, -50%) scale(1.1) rotate(5deg);
-            }
-            80% {
-                opacity: 1;
-                transform: translate(-50%, -50%) scale(1) rotate(0deg);
-            }
-            100% {
-                opacity: 0;
-                transform: translate(-50%, -50%) scale(0.8) rotate(10deg);
-            }
-        }
-    `;
-    document.head.appendChild(quoteStyle);
-
-    // Logo placeholder error handling
-    const logos = document.querySelectorAll('.nav-logo');
-    logos.forEach(logo => {
-        logo.addEventListener('error', function() {
-            // Create placeholder for missing logo
-            this.style.display = 'none';
-            const placeholder = document.createElement('div');
-            placeholder.style.cssText = `
-                height: 40px;
-                width: 80px;
-                background: var(--color-surface);
-                border: 2px solid var(--halloween-orange);
-                border-radius: var(--radius-sm);
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                font-size: 12px;
-                color: var(--halloween-orange);
-                text-align: center;
-                padding: 4px;
-            `;
-            placeholder.textContent = this.alt || 'Logo';
-            this.parentNode.insertBefore(placeholder, this.nextSibling);
-        });
-    });
-});
-
-// Error handling for countdown
-window.addEventListener('error', function(e) {
-    console.warn('Non-critical error caught:', e.message);
-    // Continue execution for non-critical errors
-});
-
-// Performance optimization - throttle scroll events
-function throttle(func, wait) {
-    let timeout;
-    return function executedFunction(...args) {
-        const later = () => {
-            clearTimeout(timeout);
-            func(...args);
-        };
-        clearTimeout(timeout);
-        timeout = setTimeout(later, wait);
-    };
 }
-
-// Apply throttling to scroll events
-const throttledScrollHandler = throttle(function() {
-    // Existing scroll handlers here
-}, 16); // ~60fps
-
-// Console easter egg
-console.log(`
-🎃 Welcome to Nexora 2025! 🦇
-    
-    ██╗  ██╗██████╗ ██████╗ ██████╗ ██╗   ██╗    ██╗  ██╗ █████╗ ██╗     ██╗      ██████╗ ██╗    ██╗███████╗███████╗███╗   ██╗
-    ██║  ██║██╔══██╗██╔══██╗██╔══██╗╚██╗ ██╔╝    ██║  ██║██╔══██╗██║     ██║     ██╔═══██╗██║    ██║██╔════╝██╔════╝████╗  ██║
-    ███████║██████╔╝██████╔╝██████╔╝ ╚████╔╝     ███████║███████║██║     ██║     ██║   ██║██║ █╗ ██║█████╗  █████╗  ██╔██╗ ██║
-    ██╔══██║██╔═══╝ ██╔═══╝ ██╔══██╗  ╚██╔╝      ██╔══██║██╔══██║██║     ██║     ██║   ██║██║███╗██║██╔══╝  ██╔══╝  ██║╚██╗██║
-    ██║  ██║██║     ██║     ██║  ██║   ██║       ██║  ██║██║  ██║███████╗███████╗╚██████╔╝╚███╔███╔╝███████╗███████╗██║ ╚████║
-    ╚═╝  ╚═╝╚═╝     ╚═╝     ╚═╝  ╚═╝   ╚═╝       ╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝╚══════╝ ╚═════╝  ╚══╝╚══╝ ╚══════╝╚══════╝╚═╝  ╚═══╝
-    
-🕸️ Thanks for inspecting the code! May your debugging be spook-free! 👻
-Updated for Nexora 2025 with enhanced event modals and integrated countdown! 🎃
-`);
-
-// Make functions globally available
-window.openEventDetail = openEventDetail;
-window.closeEventModal = closeEventModal;

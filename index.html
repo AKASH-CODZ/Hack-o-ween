@@ -3,22 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nexora 2025 - Where Innovation Meets the Unknown</title>
+    <title>Hack-o-ween '25 - Where Innovation Meets the Unknown</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎃</text></svg>">
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Creepster&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- Navigation -->
     <nav class="navbar" id="navbar">
         <div class="nav-container">
-            <div class="nav-left">
-                <div class="nav-logos">
-                    <img src="assets/institute-logo.png" alt="Institute Logo" class="nav-logo">
-                    <img src="assets/club-logo.png" alt="Club Logo" class="nav-logo">
-                </div>
-                <div class="nav-brand">
-                    <span class="brand-text">🎃 Nexora</span>
-                </div>
+            <div class="nav-brand">
+                <span class="brand-text">🎃 Hack-o-ween '25</span>
             </div>
             <div class="nav-menu" id="navMenu">
                 <a href="#hero" class="nav-link">Home</a>
@@ -35,7 +29,6 @@
         </div>
     </nav>
 
-    <!-- Hero Section -->
     <section id="hero" class="hero">
         <div class="floating-bats">
             <div class="bat bat-1">🦇</div>
@@ -46,11 +39,24 @@
         </div>
         <div class="hero-container">
             <div class="hero-content">
-                <h1 class="hero-title glow-text">Nexora</h1>
-                <h2 class="hero-subtitle">2025</h2>
+                <div class="hero-logos">
+                    <div class="hero-logo college-logo">
+                         <img src="assets/institute-logo.png" alt="PERI Institute of Technology Logo">
+                    </div>
+                    <div class="hero-logo club-logo">
+                        <img src="assets/club-logo.png" alt="Meta Mindz Club Logo">
+                        <div class="logo-text">
+                            <div class="logo-name">Meta Mindz</div>
+                            <div class="logo-subtitle">Department of CT</div>
+                            <div class="logo-accreditation">Tech Innovation Club</div>
+                        </div>
+                    </div>
+                </div>
+
+                <h1 class="hero-title glow-text">HACK-O-WEEN '25</h1>
+                
                 <p class="hero-tagline">Where Innovation Meets the Unknown</p>
                 
-                <!-- Integrated Countdown Timer -->
                 <div class="hero-countdown">
                     <div class="countdown-clock">
                         <div class="pumpkin-clock">🎃</div>
@@ -75,15 +81,16 @@
                                 <span class="time-label">Seconds</span>
                             </div>
                         </div>
-                        <p class="countdown-text">Until Nexora 2025 begins its dark magic...</p>
+                        <p class="countdown-text">Until Hack-o-ween '25 begins its dark magic...</p>
                     </div>
                 </div>
-                
+
                 <div class="hero-graphics">
                     <span class="graphic-icon">🎃</span>
                     <span class="graphic-icon">👻</span>
                     <span class="graphic-icon">🦇</span>
                 </div>
+
                 <button class="cta-button glow-button" onclick="document.getElementById('registration').scrollIntoView({behavior: 'smooth'})">
                     Join the Spookiest Tech Event 🕸️
                 </button>
@@ -91,16 +98,15 @@
         </div>
     </section>
 
-    <!-- About Section -->
     <section id="about" class="about">
         <div class="container">
             <div class="section-divider">
                 <span class="divider-icon">🎃</span>
             </div>
-            <h2 class="section-title">About Nexora</h2>
+            <h2 class="section-title">About Hack-o-ween '25</h2>
             <div class="about-content">
                 <p class="about-text">
-                    Step into the shadows of innovation at Nexora 2025, where the most brilliant minds gather to explore the unknown frontiers of technology. This Halloween-themed symposium brings together developers, innovators, and tech enthusiasts for a spine-tingling journey through cutting-edge discoveries and breakthrough innovations.
+                    Step into the shadows of innovation at Hack-o-ween '25, where the most brilliant minds gather to explore the unknown frontiers of technology. This Halloween-themed symposium brings together developers, innovators, and tech enthusiasts for a spine-tingling journey through cutting-edge discoveries and breakthrough innovations.
                 </p>
                 <p class="about-text">
                     Join us for an unforgettable experience where creativity meets code, and innovation lurks around every corner.
@@ -114,7 +120,6 @@
         </div>
     </section>
 
-    <!-- Events Section -->
     <section id="events" class="events">
         <div class="container">
             <div class="section-divider">
@@ -125,64 +130,43 @@
                 <div class="event-card hover-lift">
                     <div class="event-icon">💻</div>
                     <h3 class="event-title">Coding Championship</h3>
-                    <p class="event-description">Compete in thrilling coding challenges and showcase your programming prowess</p>
-                    <div class="event-details">
-                        <div class="event-info">
-                            <span class="event-time">🕐 10:00 AM - 4:00 PM</span>
-                            <span class="event-venue">📍 Computer Lab A</span>
-                        </div>
-                        <button class="learn-more-btn glow-button" onclick="openEventDetail('coding-championship')">
-                            Learn More 🎯
-                        </button>
+                    <p class="event-description">Compete in thrilling coding challenges and showcase your programming prowess.</p>
+                    <div class="event-footer">
+                        <span class="event-time">🕐 Day 1</span>
+                        <button class="learn-more-btn" onclick="showEventDetails('coding-championship')">Learn More</button>
                     </div>
                 </div>
                 <div class="event-card hover-lift">
                     <div class="event-icon">🚀</div>
                     <h3 class="event-title">Innovation Workshop</h3>
-                    <p class="event-description">Learn cutting-edge technologies and innovative development practices</p>
-                    <div class="event-details">
-                        <div class="event-info">
-                            <span class="event-time">🕐 9:00 AM - 12:00 PM</span>
-                            <span class="event-venue">📍 Workshop Hall</span>
-                        </div>
-                        <button class="learn-more-btn glow-button" onclick="openEventDetail('innovation-workshop')">
-                            Learn More 🚀
-                        </button>
+                    <p class="event-description">Learn cutting-edge technologies and innovative development practices.</p>
+                    <div class="event-footer">
+                        <span class="event-time">🕑 Day 1-2</span>
+                        <button class="learn-more-btn" onclick="showEventDetails('innovation-workshop')">Learn More</button>
                     </div>
                 </div>
                 <div class="event-card hover-lift">
                     <div class="event-icon">🎤</div>
                     <h3 class="event-title">Tech Talks</h3>
-                    <p class="event-description">Inspiring presentations from industry experts and thought leaders</p>
-                    <div class="event-details">
-                        <div class="event-info">
-                            <span class="event-time">🕐 2:00 PM - 5:00 PM</span>
-                            <span class="event-venue">📍 Main Auditorium</span>
-                        </div>
-                        <button class="learn-more-btn glow-button" onclick="openEventDetail('tech-talks')">
-                            Learn More 🎤
-                        </button>
+                    <p class="event-description">Inspiring presentations from industry experts and thought leaders.</p>
+                    <div class="event-footer">
+                        <span class="event-time">🕒 Day 2</span>
+                        <button class="learn-more-btn" onclick="showEventDetails('tech-talks')">Learn More</button>
                     </div>
                 </div>
                 <div class="event-card hover-lift">
                     <div class="event-icon">🏆</div>
                     <h3 class="event-title">Project Showcase</h3>
-                    <p class="event-description">Present your innovative projects and compete for exciting prizes</p>
-                    <div class="event-details">
-                        <div class="event-info">
-                            <span class="event-time">🕐 11:00 AM - 3:00 PM</span>
-                            <span class="event-venue">📍 Exhibition Hall</span>
-                        </div>
-                        <button class="learn-more-btn glow-button" onclick="openEventDetail('project-showcase')">
-                            Learn More 🏆
-                        </button>
+                    <p class="event-description">Present your innovative projects and compete for exciting prizes.</p>
+                    <div class="event-footer">
+                        <span class="event-time">🕓 Day 2</span>
+                        <button class="learn-more-btn" onclick="showEventDetails('project-showcase')">Learn More</button>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Registration Section -->
     <section id="registration" class="registration">
         <div class="container">
             <div class="section-divider">
@@ -214,40 +198,6 @@
         </div>
     </section>
 
-    <!-- Event Detail Modal -->
-    <div id="eventModal" class="modal hidden">
-        <div class="modal-backdrop" onclick="closeEventModal()"></div>
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 id="modalEventTitle" class="modal-title"></h2>
-                <button class="modal-close" onclick="closeEventModal()">✕</button>
-            </div>
-            <div class="modal-body">
-                <div class="modal-event-icon" id="modalEventIcon"></div>
-                <p id="modalEventDescription" class="modal-description"></p>
-                <div class="modal-details">
-                    <div class="modal-detail-item">
-                        <span class="modal-detail-label">🕐 Schedule:</span>
-                        <span id="modalEventSchedule" class="modal-detail-value"></span>
-                    </div>
-                    <div class="modal-detail-item">
-                        <span class="modal-detail-label">📍 Venue:</span>
-                        <span id="modalEventVenue" class="modal-detail-value"></span>
-                    </div>
-                </div>
-                <div class="modal-actions">
-                    <button class="register-event-btn glow-button" onclick="document.getElementById('registration').scrollIntoView({behavior: 'smooth'}); closeEventModal();">
-                        Register for Event 🎃
-                    </button>
-                    <button class="modal-back-btn btn--secondary" onclick="closeEventModal()">
-                        Back to Events 🦇
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Footer -->
     <footer id="footer" class="footer">
         <div class="container">
             <div class="footer-content">
@@ -256,7 +206,7 @@
                     <div class="contact-info">
                         <div class="contact-item">
                             <span class="contact-icon">📧</span>
-                            <span class="contact-text">contact@nexora2025.com</span>
+                            <span class="contact-text">contact@hackoween2025.com</span>
                         </div>
                         <div class="contact-item">
                             <span class="contact-icon">📱</span>
@@ -290,7 +240,7 @@
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2025 Nexora Symposium. All rights reserved. Made with dark magic and code 🔮</p>
+                <p>&copy; 2025 Hack-o-ween '25 Symposium. All rights reserved. Made with dark magic and code 🔮</p>
             </div>
         </div>
     </footer>
