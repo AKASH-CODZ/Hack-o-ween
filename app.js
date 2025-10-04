@@ -250,10 +250,17 @@ function initScrollAnimations() {
 
 function initLoadingAnimations() {
     setTimeout(() => {
-        document.querySelectorAll('.hero-logos, .hero-title, .hero-tagline, .hero-countdown, .hero-graphics, .cta-button').forEach((el, index) => {
+        // Only target elements within hero-content for animation, excluding the new top-left logos
+        document.querySelectorAll('.hero-title, .hero-tagline, .hero-countdown, .hero-graphics, .cta-button').forEach((el, index) => {
             setTimeout(() => {
                 el.classList.add('fade-in');
             }, index * 200);
+        });
+        // Separately animate the top-left logos if desired, or let them appear instantly
+        document.querySelectorAll('.hero-logos-top-left .bordered-logo').forEach((el, index) => {
+            setTimeout(() => {
+                el.classList.add('fade-in');
+            }, (index + 2) * 200); // Start animating after main hero content
         });
     }, 300);
 }
