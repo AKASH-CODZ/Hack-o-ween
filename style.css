@@ -263,6 +263,7 @@ html {
   position: absolute;
   top: 110px; /* Adjusted to be below fixed navbar */
   align-items: center;
+  justify-content:center;
   display: flex;
   flex-direction: row; /* Now side-by-side */
   gap: var(--space-16); /* Smaller gap between logos */
