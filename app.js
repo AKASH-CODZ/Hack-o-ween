@@ -64,54 +64,58 @@ function initNavigation() {
 // Event details functionality
 function initEventDetails() {
     const eventDetails = {
-        'coding-championship': {
-            title: 'Coding Championship',
-            icon: '💻',
-            description: 'Compete in thrilling coding challenges and showcase your programming prowess in this spine-chilling competition.',
-            details: [
-                '🕐 Duration: 4 hours of intense coding',
-                '🏆 Prizes: Cash rewards and exclusive swag',
-                '📝 Languages: Python, Java, C++, JavaScript',
-                '🎯 Difficulty: Beginner to Advanced levels'
+        'crypto': {
+            title: 'Ancient Scrolls Deciphered',
+            icon: '📜',
+            description: 'Step into the crypts of cyber secrets. This Capture-the-Flag (CTF) event challenges participants to decrypt cursed codes, uncover steganographic secrets, and exploit haunted systems to claim the ultimate flag.',
+            highlights: [
+                '🔐 Decrypt mysterious ciphers and encoded messages',
+                '👁️ Discover secrets hidden within cursed images and files',
+                '🏛️ Decode ancient scripts and historical ciphers',
+                '🛡️ Identify vulnerabilities in haunted digital systems',
+                '🏆 Progressive CTF challenges with live scoring'
             ],
-            requirements: 'Bring your laptop and coding skills. All skill levels welcome!'
+            duration: '6 hours of gameplay',
+            eligibility: 'Open to CSE, IT, and CT students',
+            requirements: 'Laptop required. Basic programming knowledge helpful but not mandatory'
+
         },
-        'innovation-workshop': {
-            title: 'Innovation Workshop',
-            icon: '🚀',
-            description: 'Learn cutting-edge technologies and innovative development practices from industry experts.',
-            details: [
-                '🕑 Duration: 2-day intensive workshop',
-                '🔧 Topics: AI/ML, Web3, Cloud Computing',
-                '👨‍💻 Mentors: Industry professionals',
-                '📜 Certificate: Completion certificate provided'
+        'web': {
+            title: 'Web of Wonders',
+            icon: '🕸️',
+            description: 'Design eerie web experiences that blur the line between creativity and chaos. Compete in frontend and backend categories to craft hauntingly beautiful websites and powerful spooky applications.',
+            highlights: [
+                '🎨 Frontend Track: Create the spookiest UI/UX with Halloween themes',
+                '⚙️ Backend Track: Build secure APIs for haunted apps (ghost games, potion shops)',
+                '🎮 Add interactive or multiplayer features',
+                '📱 Ensure responsive design across all devices',
+                '🏅 Awards for Best Design, Best Technical Implementation, and Most Creative'
+
             ],
-            requirements: 'Basic programming knowledge recommended.'
+            duration: '2-day development marathon',
+            eligibility: 'IT, CSBS, CSE, CT students',
+            requirements: 'Laptop with dev setup (HTML, CSS, JS). Experience in React, Vue, or Angular is a plus.'
+
         },
-        'tech-talks': {
-            title: 'Tech Talks',
-            icon: '🎤',
-            description: 'Inspiring presentations from industry experts and thought leaders.',
-            details: [
-                '🕒 Duration: Full day keynote sessions',
-                '🎙️ Speakers: Tech industry leaders',
-                '📊 Topics: Future of tech, startup insights',
-                '🤝 Networking: Meet industry professionals'
+        'geodata': {
+            title: 'Cursed Cartography',
+            icon: '🗺️',
+            description: 'Embark on a supernatural journey through data. Analyze ghostly geographic datasets, uncover paranormal hotspots, and use AI to predict where the next haunting might appear.',
+            highlights: [
+                '🗺️ Analyze datasets of cursed locations',
+                '📊 Identify patterns and haunting correlations',
+                '🔮 Use predictive modeling for paranormal activity zones',
+                '👻 Create interactive maps and ghost-tracking visuals',
+                '🛣️ Develop routing algorithms for supernatural journeys',
+                '🎯 Present findings through engaging map-based storytelling.'
+
             ],
-            requirements: 'Open to all attendees.'
-        },
-        'project-showcase': {
-            title: 'Project Showcase',
-            icon: '🏆',
-            description: 'Present your innovative projects and compete for exciting prizes.',
-            details: [
-                '🕓 Duration: 3 hours presentation time',
-                '🏅 Categories: Web, Mobile, AI/ML, Hardware',
-                '💰 Prizes: Up to $5000 in total prizes',
-                '👥 Team size: 1-4 members per team'
-            ],
-            requirements: 'Original project required. All technologies welcome.'
+            duration: '8 hours of data exploration',
+            eligibility: 'AI/DS, CT, CSE, IT, CSBS students',
+            requirements: 'Laptop with Python or R setup. Knowledge of Leaflet, Mapbox, or Google Maps API helpful.'
+            
         }
+        
     };
 
     window.showEventDetails = function(eventSlug) {
@@ -129,12 +133,20 @@ function initEventDetails() {
                 </div>
                 <div class="modal-body">
                     <p class="modal-description">${event.description}</p>
-                    <div class="modal-details">
-                        <h3>Event Details:</h3>
-                        <ul class="details-list">${event.details.map(detail => `<li>${detail}</li>`).join('')}</ul>
+                    <div class="modal-highlights">
+                        <h3>Event highlights:</h3>
+                        <ul class="details-list">${event.highlights.map(highlight => `<li>${highlight}</li>`).join('')}</ul>
                         <div class="requirements">
                             <h4>Requirements:</h4>
                             <p>${event.requirements}</p>
+                        </div>
+                        <div class="duration">
+                            <h4>Duration:</h4>
+                            <p>${event.duration}</p>
+                        </div>
+                        <div class="eligibility">
+                            <h4>Eligibility:</h4>
+                            <p>${event.eligibility}</p>
                         </div>
                     </div>
                     <div class="modal-actions">
@@ -162,6 +174,10 @@ function initEventDetails() {
             .details-list li { padding: 8px 0; border-bottom: 1px solid var(--color-border); }
             .requirements h4 { color: var(--halloween-purple); margin-bottom: 8px; }
             .requirements p { background: var(--color-bg-3); padding: 16px; border-radius: 8px; border-left: 4px solid var(--halloween-purple); }
+            .duration h4 { color: var(--halloween-purple); margin-bottom: 8px; }
+            .duration p { background: var(--color-bg-3); padding: 16px; border-radius: 8px; border-left: 4px solid var(--halloween-purple); }
+            .eligibility h4 { color: var(--halloween-purple); margin-bottom: 8px; }
+            .eligibility p { background: var(--color-bg-3); padding: 16px; border-radius: 8px; border-left: 4px solid var(--halloween-purple); }
             .modal-actions { display: flex; gap: 16px; justify-content: center; margin-top: 32px; }
             .btn-register, .btn-close { border: none; padding: 12px 24px; border-radius: 8px; font-weight: bold; cursor: pointer; transition: all 0.2s; }
             .btn-register { background: linear-gradient(45deg, var(--halloween-orange), var(--halloween-purple)); color: white; }
