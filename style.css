@@ -261,8 +261,8 @@ html {
 /* UPDATED: Top-left logo container - side by side */
 .hero-logos-top-left {
   position: absolute;
-  top: 90px; /* Adjusted to be below fixed navbar */
-  left: var(--space-24);
+  top: 110px; /* Adjusted to be below fixed navbar */
+  align-items: center;
   display: flex;
   flex-direction: row; /* Now side-by-side */
   gap: var(--space-16); /* Smaller gap between logos */
